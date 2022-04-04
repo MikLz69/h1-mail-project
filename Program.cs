@@ -10,6 +10,8 @@ namespace Mail_projekt
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("it's working");
+            
         }
     }
 }

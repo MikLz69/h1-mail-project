@@ -16,8 +16,12 @@ namespace Mail_projekt
                 "mail inbox: prints mail inbox",
                 "mail view <mail>: view a specific mail",
                 "mail send: create and send your own mail"
-            }
+            };
             string command = Console.ReadLine()
+            if command.ToLower() = "mail help" {
+                for (int i = 0; i < commands.Length; i++)
+                    Console.WriteLine(commands[i] + "\n")
+            }
             
         }
     }

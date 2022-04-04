@@ -10,6 +10,15 @@ namespace Mail_projekt
     {
         static void Main(string[] args)
         {
+            const string[] commands = new string[]
+            {
+                "mail info: prints user information",
+                "mail inbox: prints mail inbox",
+                "mail view <mail>: view a specific mail",
+                "mail send: create and send your own mail"
+            }
+            string command = Console.ReadLine()
+            
         }
     }
 }

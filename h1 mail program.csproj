@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{E9DE8F22-2E61-4DB6-B732-EC9E7A046A5A}</ProjectGuid>
+    <ProjectGuid>{9EAB41F9-3AD9-4046-ABEE-DEE12D7E4943}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Mail_projekt</RootNamespace>
-    <AssemblyName>Mail projekt</AssemblyName>
+    <RootNamespace>h1_mail_program</RootNamespace>
+    <AssemblyName>h1 mail program</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

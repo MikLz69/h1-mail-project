@@ -32,7 +32,7 @@ namespace Program{
                     Console.WriteLine("not implemented");
                 }
             }
-            else if (command == "mail view") {
+            else if (command == "mail view title") {
                 Console.WriteLine("not implemented");
             }
             else if (command == "mail send") {

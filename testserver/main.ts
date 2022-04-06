@@ -1,12 +1,12 @@
-// import { Application } from "https://deno.land/x/oak/mod.ts";
+import { Application } from "https://deno.land/x/oak/mod.ts";
 
-// const app = new Application();
+const app = new Application();
 
-// app.use((ctx) => {
-//   ctx.response.body = "Hello world!";
-// });
+app.use((ctx) => {
+  ctx.response.body = "Hello world!";
+});
 
-// await app.listen({ port: 8000 });
+await app.listen({ port: 8000 });
 
 
 /*
@@ -43,13 +43,13 @@ const data: MailData = {
         {
             title: "bruh moment",
             content: "top 5 bruh momentos",
-            id: 0,
+            id: 1,
             sender: "Theis",
         },
         {
             title: "bruh moment 2",
             content: "top 5 bruh momentos 2",
-            id: 1,
+            id: 2,
             sender: "Dietz",
         },
     ],
@@ -57,6 +57,18 @@ const data: MailData = {
     "Theis": [],
     "Maksim": [],
 };
+
+function generateId(user: string, mailData: MailData): number{
+    
+    let id = mailData[user].length;
+    let i = 0;
+    for (const v in mailData[user]) {
+        id = mailData[user][i].id;
+        i++;
+    }
+    id += 1;
+    return id;
+}
 
 function inbox(user: string, mailData: MailData): InboxEntry[] {
     const inboxEntries: InboxEntry[] = [];
@@ -71,11 +83,17 @@ function inbox(user: string, mailData: MailData): InboxEntry[] {
     return inboxEntries;
 }
 inbox("Mikkel", data);
+read("Mikkel", data, 1);
+const mail1: Mail = {title: "ajifjeif", content:"content", id: 3, sender: "Theis"};
+send("Theis", "Simon", data, mail1);
+console.log(data["Simon"])
 
-// function read(user: string, mailData: MailData, request: ): Mail {
-//     for (const v in mailData[user]) {
-        
-//     }
+function read(user: string, mailData: MailData, req: number): Mail {
+    return mailData[user][req-1];
+}
 
-
-// }
+function send(fromUser: string, toUser: string, mailData: MailData, mail: Mail) {
+    mail.sender = fromUser;
+    mail.id = generateId(toUser, mailData);
+    mailData[toUser].push(mail);
+}

@@ -4,20 +4,21 @@ namespace Program{
     public class Program {
         public static void Main(string[] args) {
             var program = new Program();
+            string user = "Mikkel";
             var commands = new string[]
             {
                 "mail info: prints user information",
                 "mail inbox: prints mail inbox",
-                "mail view <mail>: view a specific mail",
+                "mail read <mail>: view a specific mail",
                 "mail send: create and send your own mail"
             };
             var inbox = new List<string>() {
             };
             Console.WriteLine("Welcome to the mail, type `mail help` for available commands");
-            program.runProgram(commands, inbox);
+            program.runProgram(commands, inbox, user);
             
         }
-            public void runProgram(string[] commands, List<string> inbox) {
+            public void runProgram(string[] commands, List<string> inbox, string user) {
             var command = Console.ReadLine();
             command = command?.ToLower();
 
@@ -32,7 +33,7 @@ namespace Program{
                     Console.WriteLine("not implemented");
                 }
             }
-            else if (command == "mail view title") {
+            else if (command == "mail read 1" ) {
                 Console.WriteLine("not implemented");
             }
             else if (command == "mail send") {
@@ -42,9 +43,9 @@ namespace Program{
                 var mailTitle = Console.ReadLine();
                 Console.WriteLine("Enter bodytext: ");
                 var mailBody = Console.ReadLine();
-                Console.WriteLine(mailReciever + " " + mailTitle + " " + mailBody);
+                Console.WriteLine(mailReciever + " " + mailTitle + " " + mailBody + " " + user);
             }
-            runProgram(commands, inbox);
+            runProgram(commands, inbox, user);
         }
     }
 }

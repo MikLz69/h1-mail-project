@@ -1,4 +1,4 @@
-import { Application } from "https://deno.land/x/oak/mod.ts";
+import { Application } from "https://deno.land/x/oak@v10.5.1/mod.ts";
 
 type Mail = {
     title: string,
@@ -63,36 +63,42 @@ function read(user: string, mailData: MailData, req: number): Mail {
     return mailData[user][req-1];
 }
 
-function send(fromUser: string, toUser: string, mailData: MailData, mail: Mail) {
+function send(fromUser: string, toUser: string, mailData: MailData, mail: Mail): {msg: "Ok" | "Could not send"} {
+    if (typeof mail == "undefined") {
+        throw new Error("mail is undefined")
+    }
     mail.sender = fromUser;
     mail.id = generateId(toUser, mailData);
     mailData[toUser].push(mail);
+    return {msg: "Ok"}
 }
 
 function test_logic() {
-    inbox("Mikkel", data);
-    read("Mikkel", data, 1);
-    const mail1: Mail = {title: "ajifjeif", content:"content", id: 3, sender: "Theis"};
-    send("Theis", "Simon", data, mail1);
-    console.log(data["Simon"])
+    console.log(send("Theis", "Mikkel", data, {title: "aisfji", content: "asdasfa", id: 0, sender: "Theis"}));
 }
+test_logic();
 
+const app = new Application(); 
 
-const app = new Application();
-
-app.use((ctx) => {
+app.use (async(ctx) => {
     const path = ctx.request.url.pathname;
     const method = ctx.request.method;
     if (path === '/inbox' && method === 'GET') {
-        ctx.response.body = ('someone wants their inbox')
+        const params = ctx.request.url.searchParams
+        ctx.response.body = inbox(params.get("user")!, data)
     }
     else if (path === '/read' && method === 'GET') {
         const params = ctx.request.url.searchParams
-        ctx.response.body = (`bruh moment ${params.entries()}`)
+        ctx.response.body = read(params.get("user")!, data, parseInt(params.get("number")!));
     }
     else if (path === '/send' && method === 'POST') {
-        const body = ctx.request.body({type: 'json'})
-        ctx.response.body = ('oooooorrrrreeeøøøjjjor')
+        const body: SendRequestBody = await ctx.request.body({type: 'json'}).value
+        type SendRequestBody = {
+            fromUser: string,
+            toUser: string,
+            mail: Mail,
+        }
+        ctx.response.body = send(body.fromUser, body.toUser, data, body.mail)
     } else {
         ctx.response.body = `path=${path} method=${method}`;
     }

@@ -11,7 +11,7 @@ deno run --allow-net --watch main.ts
 curl -X GET localhost/read
 ```
 ```
-curl -X POST localhost/read?keyvalue=value && keyvalue2=value2
+curl -X POST localhost/read?keyvalue=value&keyvalue2=value2
 ```
 ```
 curl -X GET localhost/inbox

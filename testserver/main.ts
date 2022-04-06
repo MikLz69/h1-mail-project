@@ -1,29 +1,5 @@
 import { Application } from "https://deno.land/x/oak/mod.ts";
 
-const app = new Application();
-
-app.use((ctx) => {
-  ctx.response.body = "Hello world!";
-});
-
-await app.listen({ port: 8000 });
-
-
-/*
-inbox:
-    response
-
-
-read:
-    response
-    request
-
-send:
-    request
-*/
-
-
-
 type Mail = {
     title: string,
     content: string,
@@ -82,11 +58,6 @@ function inbox(user: string, mailData: MailData): InboxEntry[] {
     }
     return inboxEntries;
 }
-inbox("Mikkel", data);
-read("Mikkel", data, 1);
-const mail1: Mail = {title: "ajifjeif", content:"content", id: 3, sender: "Theis"};
-send("Theis", "Simon", data, mail1);
-console.log(data["Simon"])
 
 function read(user: string, mailData: MailData, req: number): Mail {
     return mailData[user][req-1];
@@ -97,3 +68,38 @@ function send(fromUser: string, toUser: string, mailData: MailData, mail: Mail) 
     mail.id = generateId(toUser, mailData);
     mailData[toUser].push(mail);
 }
+
+function test_logic() {
+    inbox("Mikkel", data);
+    read("Mikkel", data, 1);
+    const mail1: Mail = {title: "ajifjeif", content:"content", id: 3, sender: "Theis"};
+    send("Theis", "Simon", data, mail1);
+    console.log(data["Simon"])
+}
+
+
+const app = new Application();
+
+app.use((ctx) => {
+    const path = ctx.request.url.pathname;
+    const method = ctx.request.method;
+    if (path === '/inbox' && method === 'GET') {
+        ctx.response.body = ('someone wants their inbox')
+    }
+    else if (path === '/read' && method === 'GET') {
+        const params = ctx.request.url.searchParams
+        ctx.response.body = (`bruh moment ${params.entries()}`)
+    }
+    else if (path === '/send' && method === 'POST') {
+        const body = ctx.request.body({type: 'json'})
+        ctx.response.body = ('oooooorrrrreeeøøøjjjor')
+    } else {
+        ctx.response.body = `path=${path} method=${method}`;
+    }
+});
+
+/*
+curl localhost:8000/send -X POST -H "Content-Type: application/json" -d '{"username":"xyz","password":"xyz"}'
+*/
+console.log("xXserver startedXx")
+await app.listen({ port: 8000 });

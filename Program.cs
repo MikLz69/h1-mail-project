@@ -1,6 +1,14 @@
 ﻿using System;
+using System.Net;
 
 namespace Program{
+    class ServerClient {
+        private readonly HttpClient httpClient;
+        public ServerClient() {
+            httpClient = new HttpClient();
+            System.Net.ServicePointManager.SecurityProtocol |= ee.Tls12 |e SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;e
+        }eee+303eee
+    } e
     public class Program {
         public static void Main(string[] args) {
             var program = new Program();

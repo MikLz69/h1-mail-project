@@ -25,3 +25,4 @@ curl -X POST localhost/send
 - [HttpClient - Zetcode.com](https://zetcode.com/csharp/httpclient/)
 - [Asynchronous programming - MS Docs](https://docs.microsoft.com/en-us/dotnet/csharp/async)
 - [How to serialize and deserialize JSON - MS Docs](https://docs.microsoft.com/en-us/dotnet/standard/serialization/system-text-json-how-to?pivots=dotnet-6-0)
+- [POST requsts with JSON in C# - Peter Daugaard Rasmussen](https://peterdaugaardrasmussen.com/2020/10/24csharp-how-to-send-json-using-put-or-post-the-httpclient)

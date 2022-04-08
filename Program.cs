@@ -44,17 +44,17 @@ namespace Program{
             return mail;
         }
         
-        public async Task<Res> Send(SendReq data) {
-            var contentJson = JsonSerializer.Serialize<SendReq>(data);
-            var content = new StringContent(contentJson, Encoding.UTF8, "application/json");
-            var res = await client.PostAsync("http://localhost:8000/send", content) ;
-            if (res == null || res.Content == null)
-                throw new Exception();
-            var msg = JsonSerializer.Deserialize<Res>(res.Content.ToString()!);
-            if (msg == null)
-                throw new Exception();
-            return msg;
-        }
+        // public async Task<Res> Send(SendReq data) {
+        //     var contentJson = JsonSerializer.Serialize<SendReq>(data);
+        //     var content = new StringContent(contentJson, Encoding.UTF8, "application/json");
+        //     var res = await client.PostAsync("http://localhost:8000/send", content) ;
+        //     if (res == null || res.Content == null)
+        //         throw new Exception();
+        //     var msg = JsonSerializer.Deserialize<Res>(res.Content.ToString()!);
+        //     if (msg == null)
+        //         throw new Exception();
+        //     return msg;
+        // }
     }
     public class Program {
         public static ServerClient? sc;
@@ -64,7 +64,6 @@ namespace Program{
             string user = "Mikkel";
             var commands = new string[]
             {
-                "mail info: prints user information",
                 "mail inbox: prints mail inbox",
                 "mail read <mail number>: view a specific mail",
                 "mail send: create and send your own mail"
@@ -80,7 +79,7 @@ namespace Program{
                 throw new NullReferenceException();
             Console.WriteLine(await sc.Read());
             Console.WriteLine(await sc.Inbox());
-            Console.WriteLine(await sc.Send(new SendReq(){fromUser = "Theis", toUser = "Mikkel", mail = new Mail(){title = "doing your mom", content = "i ma doing you mom right now", id = 0, sender = "Theis"}}));
+            // Console.WriteLine(await sc.Send(new SendReq(){fromUser = "Theis", toUser = "Mikkel", mail = new Mail(){title = "doing your mom", content = "i ma doing you mom right now", id = 0, sender = "Theis"}}));
             var command = Console.ReadLine();
             command = command?.ToLower();
 
@@ -104,7 +103,7 @@ namespace Program{
                 var mailReciever = Console.ReadLine();
                 Console.WriteLine("Enter title: ");
                 var mailTitle = Console.ReadLine();
-                Console.WriteLine("Enter bodytext: ");
+                Console.WriteLine("Enter content: ");
                 var mailBody = Console.ReadLine();
                 Console.WriteLine(mailReciever + " " + mailTitle + " " + mailBody + " " + user);
             }
